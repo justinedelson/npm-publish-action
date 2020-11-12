@@ -16,7 +16,10 @@ inputs:
     description: Custom workspace directory that contains the package.json file.
     required: false
   run_install_first:
-    description: Set to 'true' to run 'yarn install' before publishing
+    description: Set to 'true' to run 'yarn install' before publishing.
+    required: false
+  runner_command:
+    description: Defaults to 'yarn'. Specify 'npm' if you need it.
     required: false
 
 runs:

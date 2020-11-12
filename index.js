@@ -25,7 +25,8 @@ async function main() {
     tagName: placeholderEnv("TAG_NAME", "v%s"),
     tagMessage: placeholderEnv("TAG_MESSAGE", "v%s"),
     tagAuthor: { name, email },
-    runInstallFirst: getEnv("RUN_INSTALL_FIRST") || "false"
+    runInstallFirst: getEnv("RUN_INSTALL_FIRST") || "false",
+    cmd: getEnv("RUNNER_COMMAND") || "yarn"
   };
 
   await processDirectory(dir, config, eventObj.commits);
@@ -139,7 +140,7 @@ async function publishPackage(dir, config, version) {
   if (config.runInstallFirst === "true") {
     await run(
       dir,
-      "yarn",
+      config.cmd,
       "install",
       "--verbose"
     );
@@ -147,7 +148,7 @@ async function publishPackage(dir, config, version) {
 
   await run(
     dir,
-    "yarn",
+    config.cmd,
     "publish",
     "--verbose",
     "--access", "public",
