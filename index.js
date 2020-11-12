@@ -146,16 +146,12 @@ async function publishPackage(dir, config, version) {
     );
   }
 
-  await run(
-    dir,
-    config.cmd,
-    "publish",
-    "--verbose",
-    "--access", "public",
-    "--non-interactive",
-    "--new-version",
-    version
-  );
+  const publishArgs = [ dir, config.cmd, "publish", "--access", "public", "--verbose" ]
+  if (config.cmd === "yarn") {
+    publishArgs.push("--non-interactive", "--new-version", version)
+  }
+
+  await run(publishArgs);
 
   console.log("Version has been published successfully:", version);
 }
