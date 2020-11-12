@@ -5,7 +5,7 @@ LABEL "com.github.actions.description"="Automatically publish new versions to np
 LABEL "com.github.actions.icon"="package"
 LABEL "com.github.actions.color"="blue"
 
-RUN apk add --no-cache git openssl
+RUN apk add --no-cache git openssl sed
 
 COPY . /tmp/src/
 
