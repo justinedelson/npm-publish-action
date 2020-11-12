@@ -151,7 +151,7 @@ async function publishPackage(dir, config, version) {
     publishArgs.push("--non-interactive", "--new-version", version)
   }
 
-  await run(publishArgs);
+  await run.apply(this, publishArgs);
 
   console.log("Version has been published successfully:", version);
 }
