@@ -161,20 +161,15 @@ function run(cwd, command, ...args) {
   return new Promise((resolve, reject) => {
     const proc = spawn(command, args, {
       cwd,
-      stdio: ["ignore", "ignore", "pipe"]
+      stdio: ["ignore", "inherit", "pipe"]
     });
     const buffers = [];
-    proc.stdout.on("data", data => buffers.push(data));
     proc.stderr.on("data", data => buffers.push(data));
     proc.on("error", () => {
       reject(new Error(`command failed: ${command}`));
     });
     proc.on("exit", code => {
       if (code === 0) {
-        const stdout = Buffer.concat(buffers).toString("utf8").trim();
-        if (stdout) {
-          console.log(stdout);
-        }
         resolve(true);
       } else {
         const stderr = Buffer.concat(buffers).toString("utf8").trim();
